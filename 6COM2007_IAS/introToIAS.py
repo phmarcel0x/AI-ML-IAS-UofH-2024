@@ -1,4 +1,4 @@
-# Intelligent Adaptive Systems - Introduction
+# Intelligent Adaptive Systems (IAS) - Introduction
 
 # Einstein's Definition of Intelligence
 intelligence_definition = "Intelligence is the ability to adapt to change."
