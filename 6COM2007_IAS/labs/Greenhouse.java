@@ -3,13 +3,19 @@ import java.util.Scanner;
 
 public class Greenhouse {
     public static void main(String[] args) {
-        //Scanner input = new Scanner(System.in);
-
-        double desiredTemp = 75.0; // Target temperature
+        Scanner input = new Scanner(System.in);
+        
+        // double desiredTemp = 75.0; // Target temperature
+        System.out.println("Enter the desired temperature: ");
+        double desiredTemp = input.nextDouble();
         double currentTemp = 70.0; // Initial temperature
         double adjustmentFactorTemp = 0.1; // Temperature adjustment rate
+
+        // double desiredMoisture = 60.0; // Target moisture level
+        System.out.println("Enter the desired moisture level: ");
+        double desiredMoisture = input.nextDouble();
         
-        double desiredMoisture = 60.0; // Target moisture level
+        
         double currentMoisture = 55.0; // Initial moisture level
         double adjustmentFactorMoisture = 0.2; // Moisture adjustment rate
 
@@ -19,6 +25,7 @@ public class Greenhouse {
         System.out.println("Temperature: " + currentTemp);
         System.out.println("Moisture: " + currentMoisture);
 
+        input.close();
         while (true) {
             // Negative feedback loop for temperature
             double tempDifference = desiredTemp - currentTemp;
@@ -45,3 +52,11 @@ public class Greenhouse {
     }
 }
 }
+
+
+// Open 365 days/week
+// Private greehouse
+// UK garden
+// tropical plants
+// Cooling: open windows
+// Heating: electric heater

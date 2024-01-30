@@ -1,10 +1,15 @@
 import random
 
-desired_temp = 75.0 # Target temperature
+# Let the user enter the desired temperature and moisture level
+# desired_temp = 75.0 # Target temperature
+desired_temp = float(input("Enter the desired temperature: "))
+print("Desired temperature:", desired_temp)
 current_temp = 70.0 # Initial temperature
 adjustment_factor_temp = 0.1 # Temperature adjustment rate
 
-desired_moisture = 60.0 # Target moisture level
+# desired_moisture = 60.0 # Target moisture level
+desired_moisture = float(input("Enter the desired moisture level: "))
+print("Desired moisture level:", desired_moisture)
 current_moisture = 55.0 # Initial moisture level
 adjustment_factor_moisture = 0.2 # Moisture adjustment rate
 
