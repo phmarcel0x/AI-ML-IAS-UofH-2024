@@ -1,17 +1,28 @@
 # 5COM2003: Artificial Intelligence
 # Worksheet 1
-# Test functions are at the bottom of the file.
 white_square = '\u25A1' # Unicode for a white square.
 capital_pi = '\u220F' # Unicode for a capital pi.
+leaf = '\u2022' # Unicode for a bullet point.
 
-# Grid World
+# Grid World II
 # Question 1
+class Agent:
+    def __init__(self, name=capital_pi, row=0, col=0):
+        self.name = name
+        self.row = row
+        self.col = col
+        self.position = (row, col)
+    
+    def display(self):
+        print("Agent " + self.name + " is at (" + str(self.row) + str(self.col) + ')')
+        print()
+
 class GridWorld:
     # Initialises the grid world with a given size.
     def __init__(self, size=5):
         self.size = size  # Size of the grid (size x size).
         self.agent_name = capital_pi # Displayed name of the agent.
-        # String used to fill the grid (and adjusted for agent's name length for pleasing display).
+        # String used to fill the grid (and adjust for agent's name length for pleasing display).
         self.grid_fill = white_square * len(self.agent_name)  
         
         # Creates the grid as a list of lists of strings and fills it.
