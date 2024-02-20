@@ -1,3 +1,4 @@
+package SimpleSDpreRandomSolution;
 /*
  * SimpleSDpre.java
  * An example of a system dynamics model implemented in Java (with random initial values)
