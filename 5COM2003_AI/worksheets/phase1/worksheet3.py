@@ -249,6 +249,6 @@ world.display()
 # print("Initiate hierarchical controller to move the agent towards the goal:")
 # world.hierarchical_controller()
 
-# # Task 4: Random walk to the goal, without using direction labels, break when the goal is reached.
-# print("Random walk to the goal, without using direction labels:")
-# world.random_walk_to_goal()
+# Task 4: Random walk to the goal, without using direction labels, break when the goal is reached.
+print("Random walk to the goal, without using direction labels:")
+world.random_walk_to_goal()
