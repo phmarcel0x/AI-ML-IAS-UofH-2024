@@ -120,42 +120,9 @@ class GridWorld:
             elif direction == 'east' and leaf_y < self.size - 1:
                 self.leaf.y += 1
                 
-    def random_walk_to_goal(self):
-        steps = 0  
-        while True:
-            # Randomly select a direction from the available directions
-            random_direction = random.choice(['north', 'south', 'east', 'west'])
-            self.move_agent(random_direction)  
-            steps += 1
-            # Check if the agent has reached the goal
-            if self.agent.perceive_label(self) == 'goal':
-                print("Agent has reached the goal in " + str(steps) + " steps.\n")
-                break
 
 
 # Example Usage:
-# if __name__ == "__main__":
-#     # Create a GridWorld instance with a size of 5
-#     grid_world = GridWorld()
-
-#     # Print the initial state of the grid
-#     print("Initial Grid:")
-#     grid_world.print_grid()
-#     print()
-
-#     # Move the agent according to the labels towards the goal
-#     while True:
-#         label = grid_world.agent.perceive_label(grid_world)
-#         if label == 'goal':
-#             print("Goal reached!")
-#             break
-#         else:
-#             print(f"Moving {label}")
-#             grid_world.move_agent(label)
-#             grid_world.print_grid()
-#             print()
-            
-# Example Random Walk:
 if __name__ == "__main__":
     # Create a GridWorld instance with a size of 5
     grid_world = GridWorld()
@@ -165,5 +132,14 @@ if __name__ == "__main__":
     grid_world.print_grid()
     print()
 
-    # Start the random walk towards the goal
-    grid_world.random_walk_to_goal()
+    # Move the agent according to the labels towards the goal
+    while True:
+        label = grid_world.agent.perceive_label(grid_world)
+        if label == 'goal':
+            print("Goal reached!")
+            break
+        else:
+            print(f"Moving {label}")
+            grid_world.move_agent(label)
+            grid_world.print_grid()
+            print()
