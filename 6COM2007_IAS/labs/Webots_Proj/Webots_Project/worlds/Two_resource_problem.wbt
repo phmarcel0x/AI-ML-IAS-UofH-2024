@@ -1,0 +1,39 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      material2 "thymio body"
+      coulombFriction [
+        0.7
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.5951591489372831 -0.761682503315764 -0.2561744553597805 5.278774479850805
+  position 2.3651095705311485 2.3483222833929855 2.5044851171629174
+}
+TexturedBackground {
+  luminosity 10
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 2 2
+  floorTileSize 2 2
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "/home/alica/Documents/Modules/CAI_22_23/my_project/textures/floor.png"
+      ]
+      repeatS FALSE
+      repeatT FALSE
+    }
+  }
+}
+Thymio2 {
+  translation -0.445474 -0.00401592 -0.445468
+  rotation -0.01070169902848398 0.9999329092246158 -0.004432909597573929 0.785446
+  controller "Bare_controller"
+}
