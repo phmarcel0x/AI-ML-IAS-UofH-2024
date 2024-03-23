@@ -3,6 +3,7 @@
 
 from enum import Enum
 import random
+import time
 
 # Constants for the grid world
 white_square = '\u25A1'  # Unicode for a white square.
@@ -236,6 +237,8 @@ while iteration_count < max_iterations:
     
     iteration_count += 1
     print()
+    
+    # time.sleep(1)  # Sleep for 1 second to slow down the simulation.
 
 if iteration_count >= max_iterations:
     print("\nMaximum iterations reached. Retry the simulation.\n")

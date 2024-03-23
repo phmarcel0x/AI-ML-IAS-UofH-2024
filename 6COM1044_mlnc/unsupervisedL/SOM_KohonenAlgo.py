@@ -1,3 +1,5 @@
+# Self Organizing Map (SOM) - Kohonen Algorithm
+
 import numpy as np
 
 def kohonen_algorithm(data, num_neurons, learning_rate, num_epochs):
