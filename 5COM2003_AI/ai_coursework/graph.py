@@ -1,6 +1,8 @@
 # 5COM2003: Artificial Intelligence
 # Practical Assignment: Variant A - Graph Measures
 # Marcelo Hernandez: 23033126
+from collections import deque
+import queue
 
 # Node Class
 class Node:
@@ -55,6 +57,21 @@ class Graph:
     
     def get_edges(self):
         return self.edges
+
+    # Compute DFS to retrieve goedesics from a start node
+    def dfs(self, start):
+        print("\nDFS from Node: ", start.get_name())
+
+        visited = set()
+        stack = [start]
+        
+        while stack:
+            node = stack.pop()
+            if node not in visited:
+                print(node.get_name())
+                visited.add(node)
+                stack.extend([neighbour for neighbour in node.get_neighbours() if neighbour not in visited])
+        print("All nodes visited.")
     
     def display(self):
         for node in self.nodes:
@@ -62,7 +79,7 @@ class Graph:
             # Print using list comprehension
             print("Neighbours: ", [neighbour.get_name() for neighbour in self.nodes[node].get_neighbours()])
             print()
-            
+
     # Create the graph
     def create_graph(self):
         print("\nGraph Display:")
@@ -81,10 +98,10 @@ class Graph:
         self.display()
     
             
-# Graph Metrics Class (Degree Centrality, Closeness Centrality, and Betweenness Centrality)
+# Graph Metrics Class
+# As defined in Clements (2019)
 class GraphMetrics:
-    
-    def __init__(self, graph):
+    def __init__(self, graph):        
         self.graph = graph
         self.nodes = graph.get_nodes()
         self.edges = graph.get_edges()
@@ -92,20 +109,19 @@ class GraphMetrics:
         self.edge_count = graph.edge_count
         
     def degree_centrality(self, node):
-        return node.get_degree()  # As defined in 
+        return node.get_degree()  
+        
+    # def closeness_centrality(self):
     
-    def closeness_centrality(self, node):
-        return 1 / self.graph_centrality()
-    
-    def betweenness_centrality(self, node):
-        return 1 / self.graph_centrality()
+    # def betweenness_centrality(self, node):
     
     def display_graph_metrics(self):
         print("Graph Centrality: ", self.graph_centrality())
         print("Closeness Centrality: ", self.closeness_centrality())
         print("Betweenness Centrality: ", self.betweenness_centrality())
     
-    
+
 # Create an instance of the Graph class
 graph1 = Graph()
 graph1.create_graph()
+graph1.dfs(graph1.nodes['V5'])
