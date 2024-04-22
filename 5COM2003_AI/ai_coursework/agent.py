@@ -1,3 +1,8 @@
+# 5COM2003: Artificial Intelligence
+# Practical Assignment: Variant A - Graph Measures
+# Marcelo Hernandez: 23033126
+# agent.py
+
 import graph
 import random
 
