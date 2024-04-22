@@ -2,7 +2,7 @@
 # Practical Assignment: Variant A - Graph Measures
 # Marcelo Hernandez: 23033126
 from collections import deque
-import queue
+import networkx as nx
 
 # Node Class
 class Node:
@@ -58,31 +58,54 @@ class Graph:
     def get_edges(self):
         return self.edges
 
-    # Compute DFS to retrieve goedesics from a start node
-    def dfs(self, start):
-        print("\nDFS from Node: ", start.get_name())
+    def bfs_closeness_cent(self, start):
+        distances = {}
+        queue = deque([start])  # Start with the start node
+        distances[start.get_name()] = 0  # Distance to itself is 0
 
+        while queue:
+            node = queue.popleft()
+            current_distance = distances[node.get_name()]            
+            for neighbour in node.get_neighbours():
+                if neighbour.get_name() not in distances:  # Check if not visited
+                    queue.append(neighbour)
+                    distances[neighbour.get_name()] = current_distance + 1                  
+        return distances
+    
+    def bfs_betweenness_cent(self, s, t):
+        queue = deque([(s, [s.get_name()])])  # Only the start node (s) is in the path
         visited = set()
-        stack = [start]
-        
-        while stack:
-            node = stack.pop()
-            if node not in visited:
-                print(node.get_name())
-                visited.add(node)
-                stack.extend([neighbour for neighbour in node.get_neighbours() if neighbour not in visited])
-        print("All nodes visited.")
+        shortest_paths = []  # List to store the shortest paths
+        shortest_length = float('inf')  # Infinity to compare with the length of the paths
+
+        while queue:
+            current_node, path = queue.popleft()
+            if current_node not in visited or len(path) <= shortest_length:
+                visited.add(current_node)
+                # If the current node is the end node (t), add the path to the shortest_paths
+                if current_node == t:
+                    shortest_length = len(path)
+                    shortest_paths.append(path)
+                # Extend the path to the neighbors not yet visited
+                for neighbor in current_node.get_neighbours():
+                    if neighbor not in visited:
+                        queue.append((neighbor, path + [neighbor.get_name()]))
+
+        # Return only the shortest paths from the collected paths
+        return [p for p in shortest_paths if len(p) == shortest_length]
+    
+    def display_bfs(self, start):
+        distances = self.bfs_closeness_cent(start)
+        print(f"{start.get_name()} to: {distances} => SUM = {sum(distances.values())}")
     
     def display(self):
         for node in self.nodes:
-            print("Node: ", node)
             # Print using list comprehension
-            print("Neighbours: ", [neighbour.get_name() for neighbour in self.nodes[node].get_neighbours()])
-            print()
+            print(f"{node} neighbours: {[neighbour.get_name() for neighbour in self.nodes[node].get_neighbours()]}")
 
     # Create the graph
     def create_graph(self):
-        print("\nGraph Display:")
+        print("\nGRAPH DISPLAY:")
         
         for i in range(1, 8):
             self.add_node(Node('V' + str(i)))
@@ -94,7 +117,7 @@ class Graph:
         self.add_edge(Edge(self.nodes['V3'], self.nodes['V6']))
         self.add_edge(Edge(self.nodes['V6'], self.nodes['V7']))
         self.add_edge(Edge(self.nodes['V7'], self.nodes['V4']))
-        
+
         self.display()
     
             
@@ -103,25 +126,49 @@ class Graph:
 class GraphMetrics:
     def __init__(self, graph):        
         self.graph = graph
-        self.nodes = graph.get_nodes()
-        self.edges = graph.get_edges()
-        self.node_count = graph.node_count
-        self.edge_count = graph.edge_count
         
     def degree_centrality(self, node):
-        return node.get_degree()  
-        
-    # def closeness_centrality(self):
+        # return node.get_degree()
+        print(f"- {node.get_name()} Degree Centrality = {node.get_degree()}")  
+       
+    def closeness_centrality(self, node):
+        distances = self.graph.bfs_closeness_cent(node)
+        total_distance = sum(distances.values())
+        closeness_cent = 0
+        if total_distance > 0:
+            closeness_cent = 1 / total_distance
+            print(f"- {node.get_name()} Closeness Centrality = {closeness_cent:.5f}")
+        return closeness_cent
     
-    # def betweenness_centrality(self, node):
+    def betweenness_centrality(self, node):
+        betweenness = 0
+        nodes = self.graph.get_nodes().values()
+        for s in nodes:
+            for t in nodes:
+                if s != t and s != node and t != node:
+                    all_paths = self.graph.bfs_betweenness_cent(s, t)
+                    shortest_paths_through_v = [path for path in all_paths if node.get_name() in path]
+                    betweenness += len(shortest_paths_through_v) / len(all_paths) if all_paths else 0
+        print(f"- {node.get_name()} Betweenness Centrality = {betweenness}")
+        return betweenness
     
-    def display_graph_metrics(self):
-        print("Graph Centrality: ", self.graph_centrality())
-        print("Closeness Centrality: ", self.closeness_centrality())
-        print("Betweenness Centrality: ", self.betweenness_centrality())
-    
+    # Display the metrics for all nodes
+    def display(self):
+        print("\nGRAPH METRICS:")
+        for node in self.graph.get_nodes().values():
+            self.degree_centrality(node)
+            self.closeness_centrality(node)
+            self.betweenness_centrality(node)
+            print()
+
 
 # Create an instance of the Graph class
-graph1 = Graph()
-graph1.create_graph()
-graph1.dfs(graph1.nodes['V5'])
+g1 = Graph()
+g1.create_graph()
+
+print("\nBFS SHORTEST PATH RESULTS:")
+for node in g1.nodes:
+    g1.display_bfs(g1.nodes[node])
+
+metrics_g1 = GraphMetrics(g1)
+metrics_g1.display()
