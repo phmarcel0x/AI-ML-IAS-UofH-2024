@@ -132,7 +132,6 @@ class GraphMetrics:
         self.graph = graph
         
     def degree_centrality(self, node):
-        print(f"- {node.get_name()} Degree Centrality = {node.get_degree()}")  
         return node.get_degree()  
     
     def closeness_centrality(self, node):
@@ -141,7 +140,6 @@ class GraphMetrics:
         closeness_cent = 0
         if total_distance > 0:  # Avoid division by zero
             closeness_cent = 1 / total_distance
-            print(f"- {node.get_name()} Closeness Centrality = {closeness_cent:.5f}")
         return closeness_cent
     
     def betweenness_centrality(self, node):
@@ -157,16 +155,16 @@ class GraphMetrics:
                     shortest_paths_through_node = [path for path in all_paths if node.get_name() in path]  
                     # Increment the betweenness if the node is in the path unless all_paths is empty
                     betweenness += len(shortest_paths_through_node) / len(all_paths) if all_paths else 0
-        print(f"- {node.get_name()} Betweenness Centrality = {betweenness}")
         return betweenness
     
     # Display the metrics for all nodes
     def display(self):
         print("\nGRAPH METRICS:")
         for node in self.graph.get_nodes().values():
-            self.degree_centrality(node)
-            self.closeness_centrality(node)
-            self.betweenness_centrality(node)
+            # self.degree_centrality(node)
+            print(f"- {node.get_name()} Degree Centrality = {self.degree_centrality(node)}")
+            print(f"- {node.get_name()} Closeness Centrality = {self.closeness_centrality(node)}")
+            print(f"- {node.get_name()} Betweenness Centrality = {self.betweenness_centrality(node)}")
             print()
         
     # Save the metrics to a CSV file
@@ -176,6 +174,3 @@ class GraphMetrics:
             writer.writerow(["Node", "Degree Centrality", "Closeness Centrality", "Betweenness Centrality"])
             for node in self.graph.get_nodes().values():
                 writer.writerow([node.get_name(), node.get_degree(), self.closeness_centrality(node), self.betweenness_centrality(node)])
-        
-    
-    

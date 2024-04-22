@@ -13,13 +13,13 @@ g1 = g.Graph()
 g1.create_graph()
 a1 = a.Agent(g1)
 
-# print("\nBFS SHORTEST PATH RESULTS:")
-# for node in g1.nodes:
-#     g1.display_bfs(g1.nodes[node])
+print("\nBFS SHORTEST PATH RESULTS:")
+for node in g1.nodes:
+    g1.display_bfs(g1.nodes[node])
 
 metrics_g1 = g.GraphMetrics(g1)
 metrics_g1.save_metrics("..\\CODE-AI-ML-IAS\\5COM2003_AI\\ai_coursework\\graph_metrics.csv")
-# metrics_g1.display()
+metrics_g1.display()
 
 # Run simulations
 simulations = 1000
@@ -50,6 +50,5 @@ with open(filename, 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["Start Node", "Target Node", "Random Walk # of Visited Nodes", "Shortest Path # of Visited Nodes"])
     writer.writerows(results)
-    
-    
+     
 print("\nSimulations completed and results saved to", filename)
