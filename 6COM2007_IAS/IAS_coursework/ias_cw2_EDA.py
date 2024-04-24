@@ -10,6 +10,7 @@
 # Libraries 
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # %%
 # Load the data into pandas dataframes 
@@ -85,5 +86,29 @@ cleaned_new_day_data_path = '../IAS_DATA/New_day_cleaned.csv'
 training_data_sorted.to_csv(cleaned_training_data_path, index=False)
 windows_open_data_sorted.to_csv(cleaned_windows_open_data_path, index=False)
 new_day_data_sorted.to_csv(cleaned_new_day_data_path, index=False)
+
+# %%
+# Plot things
+
+# Define factors and satisfaction for pair plot analysis
+factors = ['CO2_room', 'Relative_humidity_room', 'Lighting_room', 'Indoor_temperature_room', 'Outside temp', 'Satisfaction']
+
+# Create separate datasets for each occupancy scenario
+occupant1_data = training_data_sorted[training_data_sorted['Occupancy 1'] == 1]
+occupant2_data = training_data_sorted[training_data_sorted['Occupancy 2'] == 1]
+occupant3_data = training_data_sorted[training_data_sorted['Occupancy 3'] == 1]
+
+# Create pair plots per occupant 
+print("Pair Plot for Occupant 1")
+sns.pairplot(occupant1_data, vars=factors, hue='Occupancy 1', palette='viridis')
+plt.show()
+
+print("Pair Plot for Occupant 2")
+sns.pairplot(occupant2_data, vars=factors, hue='Occupancy 2', palette='viridis')
+plt.show()
+
+print("Pair Plot for Occupant 3")
+sns.pairplot(occupant3_data, vars=factors, hue='Occupancy 3', palette='viridis')
+plt.show()
 
 
